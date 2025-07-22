@@ -18,6 +18,7 @@ elsif selection == "2"
     network_name = gets.chomp
   puts "What is the password?"
     password = gets.chomp
+  qr_code_input = "WIFI:T:WPA;S:#{network_name};P:#{password};;"
 elsif selection == "3"
   puts "What is the phone number you want the code to send a text message to?"
     phone_number = gets.chomp
@@ -31,13 +32,10 @@ else
 end
 
 puts "What would you like to call the PNG?"
-url_png_name = gets.chomp
+png_name = gets.chomp
 
-# # Use the RQRCode::QRCode class to encode some text
 qrcode = RQRCode::QRCode.new(qr_code_input)
 
-# # Use the .as_png method to create a 500 pixels by 500 pixels image
 png = qrcode.as_png({ :size => 500 })
 
-# # Write the image data to a file
-IO.binwrite(url_png_name, png.to_s)
+IO.binwrite("#{png_name}.png", png.to_s)
